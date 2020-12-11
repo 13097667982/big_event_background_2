@@ -33,7 +33,9 @@ app.use(expressJwt({ secret: config.jwtSecretKey }).unless({
 const userRouter = require("./router/user")
 // 将模块化路由挂载到全局
 app.use("/api", userRouter)
-
+// 导入个人中心模块路由
+const userinfoRouter = require("./router/userinfo")
+app.use("/my", userinfoRouter)
 // 错误级别中间件
 app.use((err, req, res, next) => {
     // 数据验证失败
