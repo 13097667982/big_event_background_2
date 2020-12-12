@@ -36,6 +36,10 @@ app.use("/api", userRouter)
 // 导入个人中心模块路由
 const userinfoRouter = require("./router/userinfo")
 app.use("/my", userinfoRouter)
+
+// 导入文章分类模块路由
+const artCateRouter = require("./router/artcate")
+app.use("/my/article", artCateRouter)
 // 错误级别中间件
 app.use((err, req, res, next) => {
     // 数据验证失败
