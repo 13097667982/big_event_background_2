@@ -23,7 +23,8 @@ const cors = require("cors")
 app.use(cors())
 // 配置解析表单的中间件  express内置  只能解析x-www-urlencoded......格式
 app.use(express.urlencoded({ extended: false }))
-
+// 托管静态资源
+app.use('/uploads', express.static('./uploads'))
 // 指定哪些接口不需要token认证
 app.use(expressJwt({ secret: config.jwtSecretKey }).unless({
     path: [/^\/api\//]
@@ -40,6 +41,11 @@ app.use("/my", userinfoRouter)
 // 导入文章分类模块路由
 const artCateRouter = require("./router/artcate")
 app.use("/my/article", artCateRouter)
+
+// 导入文章模块并挂载到全局
+const articleRouter = require("./router/article")
+app.use('/my/article', articleRouter)
+
 // 错误级别中间件
 app.use((err, req, res, next) => {
     // 数据验证失败
